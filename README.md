@@ -1,14 +1,14 @@
 # Sharif-InteractiveMap
 
-##Description
+## Description
 Sharif TechPark InteractiveMap.
 
-##How To Use
+## How To Use
 DownLoad All Files.Open Sharif.html
 
-##Programming Language
--HTML
--JavaScrpit
+## Programming Language
+- HTML
+- JavaScrpit
 
 ##API
--Mapbox Gl Js
+- Mapbox Gl Js
