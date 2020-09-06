@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ناحیه نوآوری شریف</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
+
+</head>
+<body>
+	<style>
+
+
+	@font-face {
+	  font-family:Anjoman;
+	  src: url('Anjoman-Medium.woff') format('woff'),
+		url('Anjoman-Medium.oef') format('oef'),
+		url('Anjoman-Medium.ttf') format('truetype');
+	  font-weight: bold;
+	}
+	body { margin:0; padding:0; }
+	#map { position:absolute; top:0; bottom:0; width:100%; }
+	iframe{
+	display: flex;
+	border: none;
+	width: 300px;
+	height: 300px;
+	}
+
+
+
+
+#colorcode{
+	display: grid;
+	direction: rtl;
+	grid-template-columns:auto auto;
+	grid-row-gap: 5px;
+	grid-column-gap: 5px;
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+	align-items: center;
+	z-index: 7;
+
+}
+div.mapboxgl-ctrl-attrib-inner{
+display: none;
+
+}
+
+
+	/*If the browser window is 500px or larger: */
+	@media only screen and (min-width: 500px) {
+
+		a{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1.2em;
+		margin-top: 10%;
+		color: #fff;
+
+		}
+		#linkwraper{
+			background-color:#003f4f;
+			opacity: 0.7;
+				padding: 5px;
+				margin-top: 10px;
+		}
+
+		h1{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1.2em;
+		margin-bottom: 3px;
+		margin-top: 10px;
+		color: #fff;
+		padding: 5px;
+		background-color: #003f4f;
+		}
+
+		h2{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1.2em;
+		margin-top: 0;
+		margin-bottom: 0;
+
+		}
+
+		h3{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 0.8em;
+		margin:0;
+		color: #003f4f;
+		}
+
+	  #img1{
+	    width: 300px;
+	  }
+	  .mapboxgl-popup{
+	    transform:none !important;
+	     top: 0px;
+	    left: 0px;
+			max-width: 400px;
+	    height: 100%;
+
+	}
+
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top-right{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-right{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom-right{
+		max-width:100% !important;
+	}
+
+
+	.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-center .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip{
+			display:none !important;
+	}
+	.mapboxgl-popup-close-button{
+	visibility: hidden;
+
+	}
+	.mapboxgl-popup-content {
+
+	       direction: rtl;
+	       max-width: 300px;
+	       height: 100%;
+	       overflow: auto;
+				 padding: 15px;
+	            }
+
+	#menu {
+	        background: #fff;
+	        position: absolute;
+	        z-index: 1;
+	        top: 10px;
+	        right: 10px;
+	        border-radius: 3px;
+	        width: 280px;
+	        border: none;
+	        font-family: Tahoma;
+	    }
+
+	    #menu a {
+	        font-size: 15px;
+	        color: #404040;
+	        display: block;
+	        margin: 1%;
+	        padding: 0;
+	        padding: 10px;
+	        text-decoration: none;
+	        border-bottom: 1px solid rgba(0,0,0,0.25);
+	        text-align: center;
+	    }
+
+	    #menu a:last-child {
+	        border: none;
+	    }
+
+	    #menu a:hover {
+	        background-color: #6e6e6e;
+	        color: #ffffff;
+	    }
+
+	    #menu a.active {
+	        background-color: #003f4f;
+	        color: #ffffff;
+	    }
+
+	    #menu a.active:hover {
+	        background: #e6e6e6;
+	    }
+	    .layer {
+	      cursor: pointer;}
+
+				.rect{
+					height: 15px;
+					width: 15px;
+					background-color: #0600ab;
+					align-items: center;
+					justify-content: center;
+					display: flex;
+					text-align: justify;
+					font-size: 0.6em;
+					color: white;
+					font-weight: bold;
+					font-family: Tahoma;
+				}
+	}
+
+	/*If the browser window is smaller than 500px: */
+	@media only screen and (max-width: 500px) {
+
+		a{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1em;
+		margin:0;
+
+		}
+		#linkwraper{
+				padding: 0px;
+				margin-top:0px;
+		}
+
+		h1{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1em;
+		margin:0;
+		color: #003f4f;
+		padding: 1%;
+		}
+
+		h2{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 1em;
+		margin:0;
+
+		}
+
+		h3{
+		font-family: Tahoma;
+		font-weight: normal;
+		font-size: 0.6em;
+		margin:0;
+		color: #003f4f;
+		}
+
+	  #img1{
+	    width:150px;
+	  }
+	  #container{
+	    padding-right: 5%;
+	  }
+	  .mapboxgl-popup{
+	    transform:none !important;
+			position: absolute;
+	     bottom: 0px;
+	     left: 0px;
+	     right: 0px;
+	     top:auto;
+			 z-index: 10;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top-right{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-top-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-right{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom-left{
+		max-width:100% !important;
+	}
+	div.mapboxgl-popup.mapboxgl-popup-anchor-bottom-right{
+		max-width:100% !important;
+	}
+
+
+	.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-center .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip{
+			display:none !important;
+	}
+	.mapboxgl-popup-close-button{
+	visibility: hidden;
+
+	}
+	.mapboxgl-ctrl-attrib.mapboxgl-compact{
+		display:none !important;
+	}
+	  .mapboxgl-popup-content {
+	      display: flex;
+	      direction: rtl;
+	      height: 170px;
+	      overflow: auto;
+				z-index: 10;
+	          }
+  div.mapboxgl-popup-content {
+			box-sizing: border-box;
+			width: 100% !important;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #003f4f;
+
+										}
+
+
+	  #menu {
+	      background: #fff;
+	      position: absolute;
+	      z-index: 1;
+	      top: 10px;
+	      padding: 0 1% 0 1%;
+	      border-radius: 3px;
+	      width: 98%;
+	      border: none;
+	      font-family: Tahoma;
+	  }
+
+	  #menu a {
+	      font-size: 15px;
+	      color: #404040;
+	      display: block;
+	      margin: 1%;
+
+	      padding: 1% 0 1% 0 ;
+	      text-decoration: none;
+	      border-bottom: 1px solid rgba(0,0,0,0.25);
+	      text-align: center;
+	  }
+
+	  #menu a:last-child {
+	      border: none;
+	  }
+
+	  #menu a:hover {
+	      background-color: #6e6e6e;
+	      color: #ffffff;
+	  }
+
+	  #menu a.active {
+	      background-color: #003f4f;
+	      color: #ffffff;
+	  }
+
+	  #menu a.active:hover {
+	      background: #e6e6e6;
+	  }
+	  .layer {
+	    cursor: pointer;}
+	}
+
+	.rect{
+		height: 10px;
+		width: 10px;
+		background-color: #0600ab;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		text-align: justify;
+		font-size: 0.6em;
+		color: white;
+		font-weight: bold;
+		font-family: Tahoma;
+	}
+	</style>
+	<div id="map"></div>
+<nav id="colorcode">
+	<div class="grid-item"><div class="rect" style="background-color:#ffd503;opacity:0.6;"></div></div>
+  <div class="grid-item"><h3>پردیس دانشگاه صنعتی شریف</h3></div>
+  <div class="grid-item"><div class="rect" style="background-color:#00b0c7;"></div></div>
+  <div class="grid-item"><h3>بازیگران ناحیه نوآوری شریف</h3></div>
+  <div class="grid-item"><div class="rect" style="background-color:#fca400;"></div></div>
+  <div class="grid-item"><h3>شرکت‌های فناور شریفی</h3></div>
+	<div class="grid-item"><div class="rect" style="background-color:#00fc48;"></div></div>
+  <div class="grid-item"><h3> شرکت‌های فناور</h3></div>
+</nav>
+<nav id="menu"></nav>
+<script>
+
+/*If the browser window is smaller than 500px zoom starts from 14.2  */
+if (screen.width<500){
+var zom= 13.3
+} else {
+var zom= 14.8
+}
+
+mapboxgl.accessToken = 'pk.eyJ1IjoicGJpemVoIiwiYSI6ImNqNnA1eTcyYzBxYmUyd3BrNjkwOWg4d2sifQ.YJDQpV4dgfwfsFVrEqkHJw';
+mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+
+/*make and customize a mapbox */
+var map = new mapboxgl.Map({
+    container: 'map',// container id
+    style: 'mapbox://styles/mapbox/light-v8',// stylesheet location
+    center: [51.349658,35.704625],// starting position [lng, lat]
+			pitch: 50,
+			bearing: -30,
+			antialias: true,
+    zoom:zom // starting zoom (used as a variable for screen size changing)
+});
+/*add geojson layers to map*/
+//from here
+map.on('load', function () {
+
+	map.addSource('floorplan', {
+	// GeoJSON Data source used in vector tiles, documented at
+	// https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+	'type': 'geojson',
+	'data':
+	'sharif-buildings.geojson'
+	});
+	map.addLayer({
+	'id': 'ساختمان‌های موجود',
+	'type': 'fill-extrusion',
+	'source': 'floorplan',
+	'paint': {
+	// See the Mapbox Style Specification for details on data expressions.
+	// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions
+
+	// Get the fill-extrusion-color from the source 'color' property.
+	'fill-extrusion-color': ['get', 'Color'],
+
+	// Get fill-extrusion-height from the source 'height' property.
+	'fill-extrusion-height': ['get', 'Height'],
+
+	// Get fill-extrusion-base from the source 'base_height' property.
+	'fill-extrusion-base': ['get', 'Base_Height'],
+
+	// Make extrusions slightly opaque for see through indoor walls.
+	'fill-extrusion-opacity': 1
+	}
+	});
+
+	map.addSource('floorplan2', {
+	// GeoJSON Data source used in vector tiles, documented at
+	// https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+	'type': 'geojson',
+	'data':
+	'Main-buildings.geojson'
+	});
+	map.addLayer({
+	'id': 'بازیگران ناحیه نوآوری شریف',
+	'type': 'fill-extrusion',
+	'source': 'floorplan2',
+	'paint': {
+	// See the Mapbox Style Specification for details on data expressions.
+	// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions
+
+	// Get the fill-extrusion-color from the source 'color' property.
+	'fill-extrusion-color': ['get', 'Color'],
+
+	// Get fill-extrusion-height from the source 'height' property.
+	'fill-extrusion-height': ['get', 'Height'],
+
+	// Get fill-extrusion-base from the source 'base_height' property.
+	'fill-extrusion-base': ['get', 'Base_Height'],
+
+	// Make extrusions slightly opaque for see through indoor walls.
+	'fill-extrusion-opacity': 1
+	}
+	});
+
+
+
+/*make and customize popups for biuldings layer*/
+map.on('click', 'بازیگران ناحیه نوآوری شریف', function (e) {
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+        //  '<iframe src="slideshow.html" ></iframe>'+
+        "<div>"+
+        '<img src='+e.features[0].properties.ImgUrl+' id="img1"></img><p id="fonttext">'+
+        "</div>"+
+        "<div id='container'>"+
+        "<h1>"+"نام ساختمان: "+"</h1>"+"<h2>"+e.features[0].properties.Name+"</h2>"+
+        "<h1>"+"دسته‌بندی: "+"</h1>"+"<h2>"+e.features[0].properties.Category+"</h2>"+
+        "<h1>"+"توضیحات: "+"</h1>"+"<h2>"+e.features[0].properties.Description+"</h2>"+
+				"<h1>"+"زیر مجموعه‌ها: "+"</h1>"+
+				"<h2>"+"   "+e.features[0].properties.Sub1+"</h2>"+
+				"<h2>"+"   "+e.features[0].properties.Sub2+"</h2>"+
+				"<h2>"+"   "+e.features[0].properties.Sub3+"</h2>"+"<div id='linkwraper'>"+
+        "<a target='_blank' href="+e.features[0].properties.URL+" >لینک </a>"+"</div>"+"</div>"
+
+			)
+
+       .addTo(map);
+
+});
+
+/*read data from file (boundary)*/
+map.addSource("boundary", {
+  "type": 'geojson',
+  "data":'Boundary.js'
+});
+/*add data to map as a new layer (boundary)*/
+map.addLayer({
+  'id': "محدوده ناحیه نوآوری شریف",
+  'type': 'line',
+  'source': "boundary",
+  'paint': {
+      'line-color': '#003f4f',
+      'line-width':2,
+      'line-dasharray': [2,1],
+}
+});
+/*read data from file (trees)*/
+map.addSource("sharif", {
+    "type": 'geojson',
+    "data":'sharif-university.geojson'
+
+
+});
+/*add data to map as a new layer (trees)*/
+map.addLayer({
+	'id': "محدوده دانشگاه شریف",
+	'type': 'fill-extrusion',
+	'source': "sharif",
+	'paint': {
+	// See the Mapbox Style Specification for details on data expressions.
+	// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions
+
+	// Get the fill-extrusion-color from the source 'color' property.
+	'fill-extrusion-color': ['get', 'Color'],
+
+	// Get fill-extrusion-height from the source 'height' property.
+	'fill-extrusion-height': ['get', 'Height'],
+
+	// Get fill-extrusion-base from the source 'base_height' property.
+	'fill-extrusion-base': ['get', 'Base_Height'],
+
+	// Make extrusions slightly opaque for see through indoor walls.
+	'fill-extrusion-opacity': 0.5
+	}
+	});
+
+
+// Change cursor style to pointer when it enters layer.
+map.on('mouseenter', 'بازیگران ناحیه نوآوری شریف', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'بازیگران ناحیه نوآوری شریف', function () {
+    map.getCanvas().style.cursor = '';
+});
+
+});
+//to here
+
+//define a list of layer Ids
+var toggleableLayerIds = ['بازیگران ناحیه نوآوری شریف',"محدوده ناحیه نوآوری شریف","ساختمان‌های موجود","محدوده دانشگاه شریف"];
+
+
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
+
+</script>
+
+</body>
+</html>
